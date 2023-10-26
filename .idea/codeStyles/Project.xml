@@ -54,5 +54,10 @@
         <option name="USE_TAB_CHARACTER" value="false" />
       </indentOptions>
     </codeStyleSettings>
+    <codeStyleSettings language="csv">
+      <indentOptions>
+        <option name="USE_TAB_CHARACTER" value="false" />
+      </indentOptions>
+    </codeStyleSettings>
   </code_scheme>
 </component>
