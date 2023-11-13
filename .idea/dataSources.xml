@@ -4,7 +4,7 @@
     <data-source source="LOCAL" name="MainDB" uuid="94d9890b-154f-4b12-903d-cd6a01de2297">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://aws.connect.psdb.cloud:3306/omlet-master</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>

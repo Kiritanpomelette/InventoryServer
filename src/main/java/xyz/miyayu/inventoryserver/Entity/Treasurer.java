@@ -6,66 +6,36 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 import java.sql.Date;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 
 
 @Entity
 @DynamicInsert
 @Table(name = "TreasurerMaster")
-public class Treasurer {
-
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Getter
+@Setter
+public class Treasurer implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "Id")
   private int id;
 
-  @Column(name = "ProductId", length = 10, nullable = false)
-  private int productId;
-  @Column(name = "ManagerID", length = 10, nullable = false)
-  private int managerId;
-  //updatable = false：こちら指定することで更新時にnullが入ってしまうのを防ぐ
+  @Column(name = "ProductId", nullable = false, columnDefinition = "int default 0")
+  private long productId;
+
+  @Column(name = "ManagerId", nullable = false, columnDefinition = "int default 0")
+  private long managerId;
+
   @Column(name = "Date", columnDefinition = "datetime default CURRENT_TIMESTAMP")
   private Date date;
-  @Column(name = "Count")
-  private int count;
 
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public int getProductId() {
-    return productId;
-  }
-
-  public void setProductId(int productId) {
-    this.productId = productId;
-  }
-
-  public int getManagerId() {
-    return managerId;
-  }
-
-  public void setManagerId(int managerId) {
-    this.managerId = managerId;
-  }
-
-  public Date getDate() {
-    return date;
-  }
-
-  public void setDate(Date date) {
-    this.date = date;
-  }
-
-  public int getCount() {
-    return count;
-  }
-
-  public void setCount(int count) {
-    this.count = count;
-  }
+  @Column(name = "Count", columnDefinition = "int default 0")
+  private long count;
 }

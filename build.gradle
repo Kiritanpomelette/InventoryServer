@@ -37,3 +37,14 @@ checkstyle {
     toolVersion = '10.12.4'
     maxWarnings = 0
 }
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+dependencies {
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok:'
+}

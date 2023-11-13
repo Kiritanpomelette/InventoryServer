@@ -6,11 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "ProductsMaster")
+@Getter
+@Setter
 public class Products {
-
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
@@ -20,29 +23,4 @@ public class Products {
 
   @Column(name = "Memo")
   private String memo;
-
-
-  public int getId() {
-    return id;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public String getMemo() {
-    return memo;
-  }
-
-  public void setMemo(String memo) {
-    this.memo = memo;
-  }
 }
