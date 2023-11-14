@@ -37,5 +37,5 @@ public class Treasurer implements Serializable {
   private Date date;
 
   @Column(name = "Count", columnDefinition = "int default 0")
-  private long count;
+  private int count;
 }
