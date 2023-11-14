@@ -37,6 +37,21 @@ public class TreasurerController {
     // Optionalを使用してエンティティを取得 エンティティが存在しない場合はnullを返すか、例外をスロー
     return treasurerRepository.findByProductId(productId).orElse(null);
   }
+  
+  //全部API
+  @GetMapping("/allStatistics")
+  public ResponseEntity<Map<String, Object>> getAllStatistics(@RequestParam int productId) {
+    List<Object[]> results = treasurerRepository.getAll(productId);
+    if (results.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    Object[] latestResult = results.get(0);
+    Map<String, Object> latestStatistics = new HashMap<>();
+    latestStatistics.put("total", latestResult[0]);
+
+    return new ResponseEntity<>(latestStatistics, HttpStatus.OK);
+  }
 
   //日にち統計API
   @GetMapping("/dailyStatistics")

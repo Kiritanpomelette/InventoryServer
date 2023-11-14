@@ -10,6 +10,10 @@ import xyz.miyayu.inventoryserver.Entity.Treasurer;
 public interface TreasurerRepository extends CrudRepository<Treasurer, Integer> {
   Optional<Iterable<Treasurer>> findByProductId(long productId);
 
+  // 現在の統計データを取得
+  @Query("SELECT SUM(t.count) AS total FROM Treasurer  t WHERE t.productId = :productId")
+  List<Object[]> getAll(@Param("productId") int productId);
+
   // 月ごとの統計データを取得（最新のデータのみ）
   @Query("SELECT MONTH(t.date) AS month, SUM(t.count) AS total FROM Treasurer t WHERE t.productId = :productId GROUP BY MONTH(t.date) ORDER BY MONTH(t.date) DESC LIMIT 1")
   List<Object[]> getMonthlyStatistics(@Param("productId") int productId);
