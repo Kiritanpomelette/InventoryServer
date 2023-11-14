@@ -168,3 +168,6 @@ gradle-app.setting
 *.hprof
 
 # End of https://www.toptal.com/developers/gitignore/api/jetbrains,java,gradle
+
+src/main/resources/application.properties
+src/main/resources/application-stating.properties
