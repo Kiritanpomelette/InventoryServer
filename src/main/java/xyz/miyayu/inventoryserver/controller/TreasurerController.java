@@ -40,56 +40,55 @@ public class TreasurerController {
 
   //日にち統計API
   @GetMapping("/dailyStatistics")
-  public ResponseEntity<List<Map<String, Object>>> getDailyStatistics(@RequestParam int productId) {
+  public ResponseEntity<Map<String, Object>> getLatestDailyStatistics(@RequestParam int productId) {
     List<Object[]> results = treasurerRepository.getDailyStatistics(productId);
-    List<Map<String, Object>> statisticsList = new ArrayList<>();
-
-    for (Object[] result : results) {
-      Map<String, Object> statistics = new HashMap<>();
-      statistics.put("date", result[0]);
-      statistics.put("total", result[1]);
-      statisticsList.add(statistics);
+    if (results.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    return new ResponseEntity<>(statisticsList, HttpStatus.OK);
+    Object[] latestResult = results.get(0);
+    Map<String, Object> latestStatistics = new HashMap<>();
+    latestStatistics.put("date", latestResult[0]);
+    latestStatistics.put("total", latestResult[1]);
+
+    return new ResponseEntity<>(latestStatistics, HttpStatus.OK);
   }
+
 
   //週統計API
   @GetMapping("/weeklyStatistics")
-  public ResponseEntity<List<Map<String, Object>>> getWeeklyStatisticsByProductId(@RequestParam int productId) {
+  public ResponseEntity<Map<String, Object>> getLatestWeeklyStatisticsByProductId(@RequestParam int productId) {
     List<Object[]> results = treasurerRepository.getWeeklyStatisticsByProductId(productId);
-    List<Map<String, Object>> statisticsList = new ArrayList<>();
-
-    for (Object[] result : results) {
-      Map<String, Object> statistics = new LinkedHashMap<>();
-      Date startDate = (Date) result[1];
-      Date endDate = (Date) result[2];
-      long total = (long) result[3];
-
-      statistics.put("start_date", startDate.toString());
-      statistics.put("end_date", endDate.toString());
-      statistics.put("total", total);
-
-      statisticsList.add(statistics);
+    if (results.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    Map<String, Object> latestStatistics = new LinkedHashMap<>();
+    Object[] result = results.get(0);
+    Date startDate = (Date) result[1];
+    Date endDate = (Date) result[2];
+    long total = (long) result[3];
 
-    return new ResponseEntity<>(statisticsList, HttpStatus.OK);
+    latestStatistics.put("start_date", startDate.toString());
+    latestStatistics.put("end_date", endDate.toString());
+    latestStatistics.put("total", total);
+
+    return new ResponseEntity<>(latestStatistics, HttpStatus.OK);
   }
 
   //月統計API
   @GetMapping("/monthlyStatistics")
-  public ResponseEntity<List<Map<String, Object>>> getMonthlyStatistics(@RequestParam int productId) {
+  public ResponseEntity<Map<String, Object>> getLatestMonthlyStatistics(@RequestParam int productId) {
     List<Object[]> results = treasurerRepository.getMonthlyStatistics(productId);
-    List<Map<String, Object>> statisticsList = new ArrayList<>();
-
-    for (Object[] result : results) {
-      Map<String, Object> statistics = new HashMap<>();
-      statistics.put("month", result[0]);
-      statistics.put("total", result[1]);
-      statisticsList.add(statistics);
+    if (results.isEmpty()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    return new ResponseEntity<>(statisticsList, HttpStatus.OK);
+    Map<String, Object> latestStatistics = new HashMap<>();
+    Object[] latestResult = results.get(0);
+    latestStatistics.put("month", latestResult[0]);
+    latestStatistics.put("total", latestResult[1]);
+
+    return new ResponseEntity<>(latestStatistics, HttpStatus.OK);
   }
 
   //追加API
